@@ -1,20 +1,21 @@
-const { Application, Text } = require('pixi.js');
+const { Application } = require('pixi.js');
 
 const styles = require('./src/styles');
-const road = require('./src/road');
+const buildRoad = require('./src/road');
 
-const { view, stage } =  new Application();
+const { view, stage, renderer } = new Application();
 view.className = styles.canvas;
 
 const init = () => {
-    stage.addChild(road);
     document.body.appendChild(view);
+    buildRoad(renderer, 1000, road => {
+        road.position.set(50, 50);
+        stage.addChild(road);
+    });
 };
-
 
 if (window.cordova) {
     document.addEventListener('deviceready', init, false);
 } else {
     init();
 }
-
