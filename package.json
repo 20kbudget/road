@@ -10,7 +10,7 @@
     "destroy": "rm -rf ./dist",
     "create": "cordova create dist com.mnmo.hello Hello --template cordova-game-shell",
     "postcreate": "cd dist && cordova platform add android",
-    "start": "bankai index.js",
+    "start": "budo index.js --live",
     "build": "bankai build index.js tmp",
     "postbuild": "cp ./tmp/*.js ./tmp/*.css ./dist/www/. && cp ./src/config.xml ./dist/.",
     "debug": "cd dist && cordova run --device",
@@ -21,9 +21,11 @@
   "devDependencies": {
     "bankai": "^5.4.0",
     "browserify": "^14.1.0",
+    "budo": "^9.4.7",
     "es2040": "^1.2.4",
-    "prettier": "^0.20.0",
-    "uglify-js": "^2.8.1"
+    "prettier": "^0.21.0",
+    "sheetify": "^6.0.1",
+    "uglify-js": "^2.8.5"
   },
   "dependencies": {
     "pixi.js": "^4.4.1",
@@ -33,6 +35,7 @@
   },
   "browserify": {
     "transform": [
+      "sheetify/transform",
       "es2040"
     ]
   }
