@@ -9,7 +9,6 @@ view.className = styles.canvas;
 const init = () => {
     document.body.appendChild(view);
     buildRoad(renderer, 1000, road => {
-        road.position.set(50, 50);
         stage.addChild(road);
     });
 };
