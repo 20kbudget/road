@@ -2576,6 +2576,10 @@ pull-pixi-sprite-event@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/pull-pixi-sprite-event/-/pull-pixi-sprite-event-0.2.1.tgz#3d7d53dfc19455ddfdef238d5c8b363957468759"
 
+pull-pixi-tick@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/pull-pixi-tick/-/pull-pixi-tick-0.1.0.tgz#83418ba91ec83e02d6de1cf900aff3112fe58990"
+
 pull-stream@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-3.5.0.tgz#1ee5b6f76fd3b3a49a5afb6ded5c0320acb3cfc7"
