@@ -8,7 +8,7 @@
     <content src="index.html" />
     <preference name="Fullscreen" value="true" />
     <preference name="BackgroundColor" value="0xff000000" />
-    <preference name="Orientation" value="landscape" />
+    <preference name="Orientation" value="portrait" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
