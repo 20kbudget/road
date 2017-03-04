@@ -11,15 +11,15 @@
     "create": "cordova create dist com.mnmo.hello Hello --template cordova-game-shell",
     "postcreate": "cd dist && cordova platform add android",
     "start": "budo index.js --live",
-    "build": "bankai build index.js tmp",
-    "postbuild": "cp ./tmp/*.js ./tmp/*.css ./dist/www/. && cp ./src/config.xml ./dist/.",
+    "prebuild": "mkdir -p tmp",
+    "build": "browserify -p [ css-extract -o tmp/bundle.css ] index.js -o tmp/bundle.js",
+    "postbuild": "cp -R ./assets ./src/index.html ./tmp/*.js ./tmp/*.css ./dist/www/. && cp ./src/config.xml ./dist/.",
     "debug": "cd dist && cordova run --device",
-    "prerelease": "yarn build -- -O",
+    "prerelease": "uglifyjs dist/www/bundle.js --output dist/www/bundle.js --compress --mangle",
     "release": "yarn debug",
     "format": "prettier --write --single-quote --tab-width 4 --"
   },
   "devDependencies": {
-    "bankai": "^5.4.0",
     "browserify": "^14.1.0",
     "budo": "^9.4.7",
     "es2040": "^1.2.4",
@@ -28,9 +28,10 @@
     "uglify-js": "^2.8.5"
   },
   "dependencies": {
+    "css-extract": "^1.2.0",
     "pixi.js": "^4.4.1",
     "pull-pixi-sprite-event": "^0.2.1",
-    "pull-pixi-tick": "^0.1.0",
+    "pull-pixi-tick": "^1.0.0",
     "pull-stream": "^3.5.0",
     "xtend": "^4.0.1"
   },
