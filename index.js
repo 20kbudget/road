@@ -1,35 +1,40 @@
-const { Application } = require('pixi.js');
-const pull = require('pull-stream')
-const tickSource = require('pull-pixi-tick').source
-
+const { Application, settings, filters } = require('pixi.js');
+const { BlurFilter } = filters;
 const styles = require('./src/styles');
 const buildRoad = require('./src/road');
 
-const { view, stage, renderer, ticker } = new Application();
+const app = new Application();
+const { view, stage, renderer, ticker: appTicker } = app;
 view.className = styles.canvas;
 
-const speed = 6.4;
-const sink = sprite => read => {
-    const next = (err, deltaTime) => {
-        if (err) {
-            return console.log(err)
-        }
-        sprite.y = -128 + (sprite.y + deltaTime * speed) % 128;
-        read(null, next);
-    }
-    read(null, next);
-}
+// settings.TARGET_FPMS = 0.01;
 
+let speed = 0.1;
+const maxSpeed = 10;
+let d = 0;
+const onTick = function(deltaTime) {
+    d += deltaTime;
+    if (d < 1.3) {
+        return;
+    }
+    speed = Math.min(speed * 1.05, maxSpeed);
+    this.road.y = Math.round(-128 + (this.road.y + d * speed) % 128);
+    this.blur.blurY = speed * 0.8;
+    this.blur.blurX = speed * 0.15;
+    d = 0;
+};
 const init = () => {
-    renderer.roundPixels = true
     document.body.appendChild(view);
-    console.log(view.offsetHeight)
-    buildRoad(renderer, view.offsetHeight + 128 * 2, road => {
-        pull(
-            tickSource(ticker),
-            sink(road)
-        )
+    const screenHeight = view.offsetHeight;
+    const roadHeight = screenHeight + 4 * 128;
+    buildRoad(renderer, roadHeight, road => {
+        const blur = new BlurFilter();
+        blur.blurX = 0;
+        blur.blurY = 0;
+        road.filters = [blur];
+
         stage.addChild(road);
+        appTicker.add(onTick.bind({ blur, road, screenHeight, speed }));
     });
 };
 
