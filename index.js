@@ -11,13 +11,23 @@ view.className = styles.canvas;
 
 let speed = 0.1;
 const maxSpeed = 10;
+const acceleration = 1.05;
+const resistence = 0.99;
+let accelerating = false;
 let d = 0;
 const onTick = function(deltaTime) {
     d += deltaTime;
     if (d < 1.3) {
         return;
     }
-    speed = Math.min(speed * 1.05, maxSpeed);
+    speed = accelerating
+        ? Math.min(speed * acceleration, maxSpeed)
+        : speed * resistence;
+    if (speed <= 0.1) {
+        speed = 0.1;
+        d = 0;
+        return;
+    }
     this.road.y = Math.round(-128 + (this.road.y + d * speed) % 128);
     this.blur.blurY = speed * 0.8;
     this.blur.blurX = speed * 0.15;
@@ -35,6 +45,13 @@ const init = () => {
 
         stage.addChild(road);
         appTicker.add(onTick.bind({ blur, road, screenHeight, speed }));
+        stage.interactive = true;
+        stage.on('pointerdown', () => {
+            accelerating = true;
+        });
+        stage.on('pointerup', () => {
+            accelerating = false;
+        });
     });
 };
 
