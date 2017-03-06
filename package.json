@@ -30,6 +30,8 @@
   "dependencies": {
     "css-extract": "^1.2.0",
     "pixi.js": "^4.4.1",
+    "raf": "^3.3.0",
+    "stats.js": "^0.17.0",
     "xtend": "^4.0.1"
   },
   "browserify": {

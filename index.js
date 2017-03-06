@@ -1,21 +1,40 @@
+const Stats = require('stats.js');
+const raf = require('raf');
 const { autoDetectRenderer, Container } = require('pixi.js');
+
 const styles = require('./src/styles');
+const state = require('./src/state');
 
 const main = () => {
     const deviceDimensions = [window.screen.width, window.screen.height];
-    const rendererDimensions = [384, 640]
+    const rendererDimensions = [384, 640];
     const renderer = autoDetectRenderer(...rendererDimensions);
-    // renderer.autoResize = true;
-    renderer.plugins.interaction.destroy()
     const { view } = renderer;
     const stage = new Container();
     const draw = () => renderer.render(stage);
+    const stats = new Stats();
+    const tick = () => {
+        stats.begin();
+        draw();
+        stats.end();
+        if (state.isPaused) {
+            return null;
+        }
+        return unpause();
+    };
+    const unpause = () => raf(tick);
+
+    // renderer.autoResize = true;
+    renderer.plugins.interaction.destroy();
     renderer.backgroundColor = 0x111111;
+    stats.showPanel(0);
+
     view.className = styles.canvas;
     document.body.className = styles.body;
     document.body.appendChild(view);
-    draw();
-    
+    document.body.appendChild(stats.dom);
+
+    unpause();
 };
 
 // if inside cordova wrapper, wait for deviceready
