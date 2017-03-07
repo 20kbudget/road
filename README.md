@@ -1,5 +1,11 @@
-# hello
-A hello word cordova + pixi mobile app
+# road
+
+An incomplete game of cars used as playground / sandbox 
+to test some personal ideas about game development in javascript.
+
+At the current state shouldnt be useful for anyone, just a pile of garbage.
+
+But feel free to read through anyways :)
 
 ## Requirements
 
