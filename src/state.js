@@ -12,6 +12,10 @@ const rendererOptions = {
     roundPixels: true,
     backgroundColor: 0x111111
 };
+const textures = {
+    roadLeft: '',
+    playerCar: './assets/car_red_small_4.png'
+};
 
 let initialState = () => {
     const bus = nanobus();
@@ -33,13 +37,15 @@ let initialState = () => {
         framerate,
         debug,
         classNames,
+        textures,
         bus,
         renderer,
         view,
         stage,
         draw: debug ? debugDraw : draw,
         debugDiv,
-        tick
+        tick,
+        sprites: {}
     };
 
     return state;
