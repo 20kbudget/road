@@ -1,6 +1,7 @@
 const nanobus = require('nanobus');
 const Stats = require('stats.js');
-const { autoDetectRenderer, Container } = require('./custompixi');
+const { Container } = require('pixi.js');
+const { autoDetectRenderer } = require('./custompixi');
 const classNames = require('./styles');
 
 const framerate = 40;
