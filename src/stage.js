@@ -7,7 +7,7 @@ const roadReady = (stage, bus) => road => {
 };
 
 module.exports = ({ view, renderer, stage }, bus) => {
-    const roadHeight = view.height;
+    const roadHeight = view.height + 2 * 128;
     buildRoad(renderer, roadHeight, roadReady(stage, bus));
     return stage;
 };

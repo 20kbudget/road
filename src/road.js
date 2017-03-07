@@ -3,7 +3,6 @@ const {
     Container,
     Sprite,
     RenderTexture,
-    autoDetectRenderer,
     extras
 } = require('pixi.js');
 const { TilingSprite } = extras;
