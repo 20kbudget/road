@@ -1,40 +1,35 @@
+const nanobus = require('nanobus');
+const ticker = require('ticker');
 const Stats = require('stats.js');
-const raf = require('raf');
-const { autoDetectRenderer, Container } = require('pixi.js');
 
-const styles = require('./src/styles');
-const state = require('./src/state');
+const initialState = require('./src/state');
+const buildStage = require('./src/stage');
 
 const main = () => {
-    const deviceDimensions = [window.screen.width, window.screen.height];
-    const rendererDimensions = [384, 640];
-    const renderer = autoDetectRenderer(...rendererDimensions);
-    const { view } = renderer;
-    const stage = new Container();
-    const draw = () => renderer.render(stage);
+    let state = initialState();
+    const bus = nanobus();
+    const draw = () => state.renderer.render(state.stage);
+    const tick = () => bus.emit('tick');
     const stats = new Stats();
-    const tick = () => {
+    const debugDraw = () => {
         stats.begin();
         draw();
         stats.end();
-        if (state.isPaused) {
-            return null;
-        }
-        return unpause();
     };
-    const unpause = () => raf(tick);
 
-    // renderer.autoResize = true;
-    renderer.plugins.interaction.destroy();
-    renderer.backgroundColor = 0x111111;
-    stats.showPanel(0);
+    document.body.className = state.bodyClassName;
+    document.body.appendChild(state.view);
+    if (state.debug) {
+        stats.showPanel(0);
+        document.body.appendChild(stats.dom);
+    }
+    buildStage(state, bus);
 
-    view.className = styles.canvas;
-    document.body.className = styles.body;
-    document.body.appendChild(view);
-    document.body.appendChild(stats.dom);
-
-    unpause();
+    bus.on('stageReady', () => {
+        ticker(state.view, state.framerate)
+            .on('draw', state.debug ? debugDraw : draw)
+            .on('tick', tick);
+    });
 };
 
 // if inside cordova wrapper, wait for deviceready
@@ -44,12 +39,8 @@ if (window.cordova) {
     main();
 }
 
-// const { Application, settings, filters } = require('pixi.js');
+// ---- OLD STUFF TO DELETE --
 // const { BlurFilter } = filters;
-// const buildRoad = require('./src/road');
-
-// const app = new Application();
-// const { view, stage, renderer, ticker: appTicker } = app;
 
 // // settings.TARGET_FPMS = 0.01;
 
@@ -59,11 +50,7 @@ if (window.cordova) {
 // const resistence = 0.99;
 // let accelerating = false;
 // let d = 0;
-// const onTick = function(deltaTime) {
-// d += deltaTime;
-// if (d < 1.3) {
-// return;
-// }
+
 // speed = accelerating
 // ? Math.min(speed * acceleration, maxSpeed)
 // : speed * resistence;
@@ -77,23 +64,15 @@ if (window.cordova) {
 // this.blur.blurX = speed * 0.15;
 // d = 0;
 // };
-// const init = () => {
-// const screenHeight = view.offsetHeight;
-// const roadHeight = screenHeight + 4 * 128;
-// buildRoad(renderer, roadHeight, road => {
+
 // const blur = new BlurFilter();
 // blur.blurX = 0;
 // blur.blurY = 0;
 // road.filters = [blur];
 
-// stage.addChild(road);
-// appTicker.add(onTick.bind({ blur, road, screenHeight, speed }));
-// stage.interactive = true;
 // stage.on('pointerdown', () => {
 // accelerating = true;
 // });
 // stage.on('pointerup', () => {
 // accelerating = false;
 // });
-// });
-// };

@@ -3,6 +3,7 @@ const {
     Container,
     Sprite,
     RenderTexture,
+    autoDetectRenderer,
     extras
 } = require('pixi.js');
 const { TilingSprite } = extras;
@@ -29,7 +30,6 @@ const loadTextures = cb => {
             loadedTextures += 1;
         }
         if (loadedTextures === textures.length) {
-            // console.log('finished loading');
             cb(textures);
         }
     };
