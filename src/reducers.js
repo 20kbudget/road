@@ -9,8 +9,8 @@ const setup = state => {
         );
         const { current, total } = state.loading;
         const newTotal = total + increment;
-        const progress = (current / newTotal) || 0;
-        bus.emit('loading:progress', {progress});
+        const progress = current / newTotal;
+        bus.emit('loading:progress', { progress });
 
         // mutate state
         state.loading.total = newTotal;
@@ -19,10 +19,10 @@ const setup = state => {
     const incrementLoadingProgress = ({ size }) => {
         const { current, total } = state.loading;
         const newCurrent = current + size;
-        const progress = (newCurrent / total) || 0;
-        bus.emit('loading:progress', {progress});
-        if (progress === 1){
-            bus.emit('loaded', {size: newCurrent})
+        const progress = newCurrent / total;
+        bus.emit('loading:progress', { progress });
+        if (progress === 1) {
+            bus.emit('loaded', { size: newCurrent });
         }
 
         // mutate state

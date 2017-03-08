@@ -6,6 +6,7 @@ const classNames = require('./styles');
 
 const framerate = 40;
 const debug = true;
+const paused = false;
 const dimensions = [384, 640];
 const rendererOptions = {
     autoResize: true,
@@ -37,27 +38,36 @@ let initialState = () => {
     const renderer = autoDetectRenderer(...dimensions, ...rendererOptions);
     const { view } = renderer;
     const stage = new Container();
-    const tick = () => bus.emit('tick');
-    const draw = () => renderer.render(stage);
-    const stats = new Stats();
-    const debugDiv = stats.dom;
+    const branch = (flag, a, b) => flag ? a : b;
+    const stageRender = () => renderer.render(stage);
     const debugDraw = () => {
         stats.begin();
-        draw();
+        stageRender();
         stats.end();
     };
+    const nullFn = () => null;
+    const draw = () =>
+        branch(
+            state.paused,
+            nullFn,
+            branch(state.debug, debugDraw, stageRender)
+        )();
+    const tick = () => branch(state.paused, nullFn, () => bus.emit('tick'))();
+    const stats = new Stats();
+    const debugDiv = stats.dom;
     stats.showPanel(0);
 
     const state = {
         framerate,
         debug,
+        paused,
         classNames,
         textures,
         bus,
         renderer,
         view,
         stage,
-        draw: debug ? debugDraw : draw,
+        draw,
         debugDiv,
         tick,
         loading,
