@@ -1,8 +1,8 @@
 ## today
 
-  - [x] organize better effects and reducers
-  - [x] add car sprite
+  - [ ] print deltaTime in debug logs
+  _ [ ] implement play/pause
+
+## todo / ideas / notes / later
+
   - [ ] handle touch down / touch up
-
-
-## ideas / notes / later
