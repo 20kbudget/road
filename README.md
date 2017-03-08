@@ -44,3 +44,19 @@ yarn debug
 yarn release
 ```
 
+## Credits
+
+Assets by [Kenney][kenney]:
+
+- [Play / Pause icons][pause]
+- [Car, roads][race]
+
+## License
+
+Copyright 2017 Fabricio Campos Zuardi and AUTHORS
+
+This game is licensed under the AGPL v3.0 see LICENSE
+
+[kenney]: http://kenney.nl/
+[pause]: http://kenney.nl/assets/game-icons
+[race]: http://kenney.nl/assets/racing-pack

@@ -10,15 +10,15 @@ const main = () => {
     setupReducers(state);
     setupEffects(state);
 
-    if(state.debug) {
-        bus.on('*', (eventName, data) => 
-            eventName !== 'tick' ? console.log(eventName, data) : null
+    if (state.debug) {
+        bus.on(
+            '*',
+            (eventName, data) =>
+                eventName !== 'tick' ? console.log(eventName, data) : null
         );
     }
 
-    bus.emit('textures:load', ['playerCar']);
-    bus.emit('loop:start');
-
+    bus.emit('textures:load', Object.keys(state.textures));
 };
 
 if (window.cordova) {

@@ -14,8 +14,22 @@ const rendererOptions = {
     backgroundColor: 0x111111
 };
 const textures = {
-    roadLeft: '',
-    playerCar: './assets/car_red_small_4.png'
+    playIcon: {
+        url: './assets/right.png',
+        size: 15312
+    },
+    pauseIcon: {
+        url: './assets/pause.png',
+        size: 15197
+    },
+    playerCar: {
+        url: './assets/car_red_small_4.png',
+        size: 703
+    }
+};
+const loading = {
+    total: 0,
+    current: 0
 };
 
 let initialState = () => {
@@ -46,6 +60,7 @@ let initialState = () => {
         draw: debug ? debugDraw : draw,
         debugDiv,
         tick,
+        loading,
         sprites: {}
     };
 
