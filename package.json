@@ -25,11 +25,11 @@
     "es2040": "^1.2.4",
     "prettier": "^0.21.0",
     "sheetify": "^6.0.1",
-    "uglify-js": "^2.8.7"
+    "uglify-js": "^2.8.9"
   },
   "dependencies": {
     "css-extract": "^1.2.0",
-    "nanobus": "^2.0.1",
+    "nanobus": "^2.1.0",
     "pixi.js": "^4.4.1",
     "stats.js": "^0.17.0",
     "ticker": "^0.1.0",

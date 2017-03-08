@@ -2013,9 +2013,9 @@ nan@^2.3.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.1.tgz#d5b01691253326a97a2bbee9e61c55d8d60351e2"
 
-nanobus@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/nanobus/-/nanobus-2.0.1.tgz#1e177032a52c6f617040fddb2cc355a271567cff"
+nanobus@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/nanobus/-/nanobus-2.1.0.tgz#65528eaa71e30ea9d2fcf857bc7c97fb481c72cc"
 
 node-pre-gyp@^0.6.29:
   version "0.6.33"
@@ -3067,9 +3067,9 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-uglify-js@^2.8.7:
-  version "2.8.7"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.7.tgz#e0391911507b6d2e05697a528f1686e90a11b160"
+uglify-js@^2.8.9:
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.9.tgz#01194b91cc0795214093c05594ef5ac1e0b2e900"
   dependencies:
     source-map "~0.5.1"
     uglify-to-browserify "~1.0.0"
