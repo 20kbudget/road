@@ -22,10 +22,10 @@
   "devDependencies": {
     "browserify": "^14.1.0",
     "budo": "^9.4.7",
-    "es2040": "^1.2.4",
+    "es2040": "^1.2.5",
     "prettier": "^0.21.0",
     "sheetify": "^6.0.1",
-    "uglify-js": "^2.8.9"
+    "uglify-js": "^2.8.10"
   },
   "dependencies": {
     "css-extract": "^1.2.0",

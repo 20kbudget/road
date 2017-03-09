@@ -1104,9 +1104,9 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es2040@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/es2040/-/es2040-1.2.4.tgz#808c1a085cb87c45b00ac1d24bc451390c9139fd"
+es2040@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/es2040/-/es2040-1.2.5.tgz#a535dd7d4472ba346cde80e5d42fcdf939aa4f77"
   dependencies:
     babel-core "^6.9.1"
     babel-preset-es2040 "^1.1.0"
@@ -3071,9 +3071,9 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-uglify-js@^2.8.9:
-  version "2.8.9"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.9.tgz#01194b91cc0795214093c05594ef5ac1e0b2e900"
+uglify-js@^2.8.10:
+  version "2.8.10"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.10.tgz#bd0be568369f7be8cad2a4161fa90ada118ef73a"
   dependencies:
     source-map "~0.5.1"
     uglify-to-browserify "~1.0.0"
