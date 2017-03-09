@@ -17,38 +17,48 @@ const baseState = {
         backgroundColor: 0x111111
     },
     textures: {
-        // playIcon: {
-            // url: './assets/right.png',
-            // size: 15312
-        // },
-        // pauseIcon: {
-            // url: './assets/pause.png',
-            // size: 15197
-        // },
+        pauseIcon: {
+            url: './assets/pause.png',
+            size: 15197
+        },
+        playIcon: {
+            url: './assets/right.png',
+            size: 15312
+        },
         playerCar: {
             url: './assets/car_red_small_4.png',
             size: 703
         }
     },
+    loadedTextures: [],
     loading: {
         total: 0,
         current: 0
+    },
+    layers: {
+        background: new Container(),
+        player: new Container(),
+        ui: new Container()
     }
 };
 
+const branch = (flag, a, b) => flag ? a : b;
+const nullFn = () => null;
+
 let initialState = () => {
     const bus = nanobus();
-    const renderer = autoDetectRenderer(...baseState.dimensions, ...baseState.rendererOptions);
+    const renderer = autoDetectRenderer(
+        ...baseState.dimensions,
+        ...baseState.rendererOptions
+    );
     const { view } = renderer;
-    const stage = new Container();
-    const branch = (flag, a, b) => flag ? a : b;
+    const stage = new Container(Object.values(baseState.layers));
     const stageRender = () => renderer.render(stage);
     const debugDraw = () => {
         stats.begin();
         stageRender();
         stats.end();
     };
-    const nullFn = () => null;
     const draw = () =>
         branch(
             state.paused,

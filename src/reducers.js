@@ -29,20 +29,38 @@ const setup = state => {
         state.loading.current = newCurrent;
     };
 
-    const addSprite = ({ id, texture }) => {
-        let sprite = new Sprite(texture);
-        sprite.anchor.set(0.5);
-        // visual debug
-        sprite.position.set(state.view.width / 2, state.view.height / 2);
-
+    const updateLoadedTextures = ({ id, texture }) => {
         // mutate state
-        state.sprites[id] = sprite;
-        state.stage.addChild(sprite);
+        state.loadedTextures.push(id);
+        state.textures[id].texture = texture;
+    };
+
+    const texturesReady = ({ id, requiredTextures }) => {
+        const remainingTextures = requiredTextures.filter(
+            i => i !== id && !state.loadedTextures.includes(i)
+        );
+        if (remainingTextures.length > 0) {
+            return false;
+        }
+        return true;
+    };
+
+    const pauseToggle = ({ id, texture }) => {
+        const requiredTextures = ['pauseIcon', 'playIcon'];
+        if (requiredTextures.indexOf(id) === -1) {
+            return false;
+        }
+        if (!texturesReady({ id, requiredTextures })) {
+            return null;
+        }
+        bus.removeListener('texture:loaded', pauseToggle);
+        console.log('ready to build component');
     };
 
     bus.on('textures:load', computeTexturesSize);
     bus.on('texture:loaded', incrementLoadingProgress);
-    // bus.on('texture:loaded', addSprite);
+    bus.on('texture:loaded', updateLoadedTextures);
+    bus.on('texture:loaded', pauseToggle);
 };
 
 module.exports = setup;
