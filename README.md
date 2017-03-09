@@ -18,6 +18,7 @@ But feel free to read through anyways :)
 ```
 yarn install
 yarn create
+yarn fixdependencies (while [this bug][humantimebug] is open)
 ```
  
 ## Test in the browser
@@ -60,3 +61,5 @@ This game is licensed under the AGPL v3.0 see LICENSE
 [kenney]: http://kenney.nl/
 [pause]: http://kenney.nl/assets/game-icons
 [race]: http://kenney.nl/assets/racing-pack
+[humantimebug]: https://github.com/danasilver/tiny-human-time/issues/6
+
