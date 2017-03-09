@@ -1,6 +1,5 @@
 ## today
 
-  - [x] print deltaTime in debug logs
   _ [ ] implement play/pause
 
 ## todo / ideas / notes / later
