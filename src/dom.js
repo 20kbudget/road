@@ -30,7 +30,7 @@ const emitPointerEvents = ({ state }) => {
     state.view.addEventListener(eventNames.start, event => {
         event.preventDefault();
         normalizePointerEvent(event);
-        bus.emit('pointerdown', { event });
+        bus.emit('pointerdown', event);
     });
 };
 

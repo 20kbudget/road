@@ -5,17 +5,16 @@ const { Container } = require('pixi.js');
 const { autoDetectRenderer } = require('./custompixi');
 // const { autoDetectRenderer, Container } = require('pixi.js');
 const classNames = require('./styles');
+const pauseToggle = require('./pauseToggle');
 
 const baseState = {
-    framerate: 40,
-    debug: true,
-    paused: false,
-    rendererOptions: {
-        autoResize: true,
-        forceFXAA: true,
-        roundPixels: true,
-        backgroundColor: 0x111111
-    },
+    root: [
+        {
+            id: 'ui',
+            pixiContainer: new Container(),
+            children: [pauseToggle]
+        }
+    ],
     textures: {
         pauseIcon: {
             url: './assets/pause.png',
@@ -30,16 +29,20 @@ const baseState = {
             size: 703
         }
     },
-    loadedTextures: [],
+    framerate: 40,
+    debug: true,
+    paused: true,
+    rendererOptions: {
+        autoResize: true,
+        forceFXAA: true,
+        roundPixels: true,
+        backgroundColor: 0x111111
+    },
     loading: {
         total: 0,
         current: 0
     },
-    layers: {
-        background: new Container(),
-        player: new Container(),
-        ui: new Container()
-    }
+    loadedTextures: []
 };
 
 const branch = (flag, a, b) => flag ? a : b;
@@ -47,27 +50,26 @@ const nullFn = () => null;
 
 let initialState = () => {
     const bus = nanobus();
-    const windowDimensions = [window.innerWidth, window.innerHeight]
+    const windowDimensions = [window.innerWidth, window.innerHeight];
     const renderer = autoDetectRenderer(
         ...windowDimensions,
         ...baseState.rendererOptions
     );
     const { view } = renderer;
     const stage = new Container();
-    const layerContainers = Object.values(baseState.layers);
+    const layerContainers = baseState.root.map(child => child.pixiContainer);
     stage.addChild(...layerContainers);
     const stageRender = () => renderer.render(stage);
     const debugDraw = () => {
-        stats.begin();
+        if (!state.paused) {
+            stats.begin();
+        }
         stageRender();
-        stats.end();
+        if (!state.paused) {
+            stats.end();
+        }
     };
-    const draw = () =>
-        branch(
-            state.paused,
-            nullFn,
-            branch(state.debug, debugDraw, stageRender)
-        )();
+    const draw = () => branch(state.debug, debugDraw, stageRender)();
     const tick = () => branch(state.paused, nullFn, () => bus.emit('tick'))();
     const stats = new Stats();
     const debugDiv = stats.dom;
