@@ -10,7 +10,7 @@
     "destroy": "rm -rf ./dist",
     "create": "cordova create dist com.mnmo.hello Hello --template cordova-game-shell",
     "postcreate": "cd dist && cordova platform add android",
-    "start": "budo index.js --live",
+    "start": "budo index.js:bundle.js --live",
     "fixdependencies": "viralify . -t es2040 -p tiny-human-time",
     "prebuild": "mkdir -p tmp",
     "build": "browserify -p [ css-extract -o tmp/bundle.css ] index.js -o tmp/bundle.js",
